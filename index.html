@@ -4,48 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gregorian to Hijri Converter</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
+            padding: 20px;
         }
         .container {
-            text-align: center;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
         }
-        input {
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: calc(100% - 24px);
-            box-sizing: border-box;
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        input[type="date"] {
+            display: block;
+            width: 100%;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            font-size: 1rem;
         }
         button {
-            padding: 10px 20px;
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            background-color: pink;
             border: none;
-            border-radius: 4px;
-            background-color: #ff69b4;
-            color: #fff;
-            font-size: 16px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #ff85c0;
+            background-color: #ff9999;
         }
-        .result {
-            margin-top: 20px;
-            font-size: 18px;
+        #result {
+            margin-top: 1rem;
+            text-align: center;
             font-weight: bold;
+        }
+        .description {
+            margin-top: 2rem;
+            text-align: justify;
+        }
+        ul {
+            padding-left: 20px;
         }
     </style>
 </head>
@@ -53,23 +66,33 @@
     <div class="container">
         <h1>Gregorian to Hijri Converter</h1>
         <input type="date" id="gregorianDate">
-        <button onclick="convertToHijri()">Convert</button>
-        <div class="result" id="result"></div>
+        <button onclick="convertDate()">Convert</button>
+        <div id="result"></div>
+
+        <div class="description">
+            <h2>Discover Your Hijri Birthday: Connecting with Islamic Heritage</h2>
+            <p>Welcome to our unique Gregorian to Hijri date converter! Have you ever wondered about your birthday in the Islamic calendar? Our user-friendly tool helps you quickly find your Hijri date of birth, opening a window to your place in Islamic history.</p>
+
+            <p>Our easy-to-use converter allows you to input your Gregorian birth date and instantly see its Hijri equivalent. Start your journey of discovery today and uncover a new dimension to your personal history!</p>
+
+            <p><i>_Mumtaz Jahan</i></p>
+        </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hijri-date/1.0.3/hijri-date.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hijri-date@1.0.2/dist/hijri-date.min.js"></script>
     <script>
-        function convertToHijri() {
-            const gregorianDateInput = document.getElementById('gregorianDate').value;
-            if (!gregorianDateInput) {
-                alert('Please select a Gregorian date.');
+        function convertDate() {
+            const gregorianDate = document.getElementById('gregorianDate').value;
+            if (!gregorianDate) {
+                document.getElementById('result').textContent = 'Please select a date.';
                 return;
             }
 
-            const gregorianDate = new Date(gregorianDateInput);
-            const hijriDate = new HijriDate(gregorianDate);
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerText = `Hijri Date: ${hijriDate.format('YYYY/MM/DD')}`;
+            const date = new Date(gregorianDate);
+            const hijri = new HijriDate(date);
+
+            document.getElementById('result').textContent =
+                `Hijri Date: ${hijri.getFullYear()}-${hijri.getMonth() + 1}-${hijri.getDate()}`;
         }
     </script>
 </body>
